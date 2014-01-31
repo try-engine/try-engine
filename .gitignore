@@ -16,3 +16,7 @@
 
 # Linux
 *~
+
+# Qt Creator
+src-build
+src/CMakeLists.txt.user

@@ -1,0 +1,13 @@
+Try! Engine
+===========
+
+PRE-REQUISITES
+--------------
+
+Make sure you have the following pre-requisites installed:
+
+ * CMake >= 2.8.10 (required)
+   http://www.cmake.org
+
+ * Boost libraries >= 1.47.0 (required)
+   http://www.boost.org

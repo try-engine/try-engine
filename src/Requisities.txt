@@ -1,0 +1,2 @@
+# Add local repository for FindXXX.cmake modules.
+SET(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/" ${CMAKE_MODULE_PATH})
