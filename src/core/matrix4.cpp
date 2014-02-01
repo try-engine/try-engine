@@ -46,15 +46,14 @@ Matrix4::~Matrix4()
 
 Matrix4& Matrix4::transpose()
 {
-    Vector4 c0 = this->column(0);
-    Vector4 c1 = this->column(1);
-    Vector4 c2 = this->column(2);
-    Vector4 c3 = this->column(3);
+    float tmp[] = {
+        m00, m10, m20, m30,
+        m01, m11, m21, m31,
+        m02, m12, m22, m32,
+        m03, m13, m23, m33,
+    };
 
-    memcpy(r0, c0.components, 4);
-    memcpy(r1, c1.components, 4);
-    memcpy(r2, c2.components, 4);
-    memcpy(r3, c3.components, 4);
+    memcpy(components, tmp, 16*sizeof(float));
 
     return *this;
 }

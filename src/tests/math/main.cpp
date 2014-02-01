@@ -28,6 +28,30 @@
 
 const float feps = 0.0001;
 
+TEST_CASE( "Test Matrix3 transpose", "[math][matrix][matrix3][transpose]" )
+{
+    Try::Matrix3 trym(
+        3.14, 1.2, 0.5,
+        3, 1, 0.2,
+        0, 2, 4
+    );
+
+    Try::Matrix3 transp(trym);
+    transp.transpose();
+
+    REQUIRE(transp == trym.transposed());
+
+    REQUIRE(transp[0][0] == trym.column(0)[0]);
+    REQUIRE(transp[0][1] == trym.column(0)[1]);
+    REQUIRE(transp[0][2] == trym.column(0)[2]);
+    REQUIRE(transp[1][0] == trym.column(1)[0]);
+    REQUIRE(transp[1][1] == trym.column(1)[1]);
+    REQUIRE(transp[1][2] == trym.column(1)[2]);
+    REQUIRE(transp[2][0] == trym.column(2)[0]);
+    REQUIRE(transp[2][1] == trym.column(2)[1]);
+    REQUIRE(transp[2][2] == trym.column(2)[2]);
+}
+
 TEST_CASE( "Test Matrix3 invert", "[math][matrix][matrix3][invert]" )
 {
     glm::mat3x3 glmm(
@@ -42,7 +66,10 @@ TEST_CASE( "Test Matrix3 invert", "[math][matrix][matrix3][invert]" )
     );
 
     glm::mat3x3 glmm2 = glm::inverseTranspose(glmm);
-    Try::Matrix3 trym2 = trym.inverted();
+    Try::Matrix3 trym2 = trym;
+    trym2.invert();
+
+    REQUIRE(trym2 == trym.inverted());
 
     REQUIRE(abs(glmm2[0][0] - trym2.column(0)[0]) < feps);
     REQUIRE(abs(glmm2[0][1] - trym2.column(0)[1]) < feps);
@@ -53,6 +80,38 @@ TEST_CASE( "Test Matrix3 invert", "[math][matrix][matrix3][invert]" )
     REQUIRE(abs(glmm2[2][0] - trym2.column(2)[0]) < feps);
     REQUIRE(abs(glmm2[2][1] - trym2.column(2)[1]) < feps);
     REQUIRE(abs(glmm2[2][2] - trym2.column(2)[2]) < feps);
+}
+
+TEST_CASE( "Test Matrix4 transpose", "[math][matrix][matrix4][transpose]" )
+{
+    Try::Matrix4 trym(
+        3.14, 1.2, 0.5, 0.2,
+        3, 1, 0.2, 0.6,
+        0, 2, 4, 1.5,
+        5.2, 20, 4, 0.3
+    );
+
+    Try::Matrix4 transp(trym);
+    transp.transpose();
+
+    REQUIRE(transp == trym.transposed());
+
+    REQUIRE(transp[0][0] == trym.column(0)[0]);
+    REQUIRE(transp[0][1] == trym.column(0)[1]);
+    REQUIRE(transp[0][2] == trym.column(0)[2]);
+    REQUIRE(transp[0][3] == trym.column(0)[3]);
+    REQUIRE(transp[1][0] == trym.column(1)[0]);
+    REQUIRE(transp[1][1] == trym.column(1)[1]);
+    REQUIRE(transp[1][2] == trym.column(1)[2]);
+    REQUIRE(transp[1][3] == trym.column(1)[3]);
+    REQUIRE(transp[2][0] == trym.column(2)[0]);
+    REQUIRE(transp[2][1] == trym.column(2)[1]);
+    REQUIRE(transp[2][2] == trym.column(2)[2]);
+    REQUIRE(transp[2][3] == trym.column(2)[3]);
+    REQUIRE(transp[3][0] == trym.column(3)[0]);
+    REQUIRE(transp[3][1] == trym.column(3)[1]);
+    REQUIRE(transp[3][2] == trym.column(3)[2]);
+    REQUIRE(transp[3][3] == trym.column(3)[3]);
 }
 
 TEST_CASE( "Test Matrix4 invert", "[math][matrix][matrix4][invert]" )
@@ -71,7 +130,10 @@ TEST_CASE( "Test Matrix4 invert", "[math][matrix][matrix4][invert]" )
     );
 
     glm::mat4x4 glmm2 = glm::inverseTranspose(glmm);
-    Try::Matrix4 trym2 = trym.inverted();
+    Try::Matrix4 trym2 = trym;
+    trym2.invert();
+
+    REQUIRE(trym2 == trym.inverted());
 
     REQUIRE(abs(glmm2[0][0] - trym2.column(0)[0]) < feps);
     REQUIRE(abs(glmm2[0][1] - trym2.column(0)[1]) < feps);

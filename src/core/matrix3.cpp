@@ -43,13 +43,13 @@ Matrix3::~Matrix3()
 
 Matrix3& Matrix3::transpose()
 {
-    Vector3 c0 = this->column(0);
-    Vector3 c1 = this->column(1);
-    Vector3 c2 = this->column(2);
+    float tmp[] = {
+        m00, m10, m20,
+        m01, m11, m21,
+        m02, m12, m22
+    };
 
-    memcpy(r0, c0.components, 3);
-    memcpy(r1, c1.components, 3);
-    memcpy(r2, c2.components, 3);
+    memcpy(components, tmp, 9*sizeof(float));
 
     return *this;
 }
