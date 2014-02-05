@@ -80,7 +80,16 @@ namespace Try
 
         bool operator == (const Vector3& v) const;
         bool operator != (const Vector3& v) const;
+
+        template<typename T>
+        static Vector3 from(const T& src);
     };
+
+    template<typename T>
+    Vector3 Vector3::from(const T& src)
+    {
+        return Vector3(src.x, src.y, src.z);
+    }
 }
 
 std::ostream& operator << (std::ostream& os, const Try::Vector3& v);

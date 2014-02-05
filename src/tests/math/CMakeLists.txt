@@ -1,5 +1,11 @@
 set(SOURCES
     ${SOURCES}
-    ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/bootstrap.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/vector2.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/vector3.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/vector4.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/matrix3.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/matrix4.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/quaternion.cpp
     PARENT_SCOPE
 )
