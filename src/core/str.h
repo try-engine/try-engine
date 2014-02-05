@@ -109,9 +109,20 @@ namespace Try
         bool operator != (const String& str) const;
 
         static String join(const StringList& parts, const String& sep);
+
+        template<typename T>
+        static String from(const T& src);
     };
 }
 
 std::ostream& operator << (std::ostream& os, const Try::String& str);
+
+template<typename T>
+Try::String Try::String::from(const T& src)
+{
+    std::stringstream buff;
+    buff << src;
+    return buff.str();
+}
 
 #endif // TRY_STRING_H
