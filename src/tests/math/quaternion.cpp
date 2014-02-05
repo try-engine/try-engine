@@ -21,6 +21,20 @@
 
 #include "bootstrap.h"
 
+struct CustomQuaternion
+{
+    float x,y,z,w;
+
+    CustomQuaternion(float x, float y, float z, float w) : x(x), y(y), z(z), w(w) {}
+};
+
+TEST_CASE( "Test Quaternion from", "[math][vector][quaternion][from][vector4]" )
+{
+    REQUIRE(Try::Quaternion::from<CustomQuaternion>(CustomQuaternion(56, 23.824, 31.45, 2)) == Try::Quaternion(56, 23.824, 31.45, 2));
+    REQUIRE(Try::Quaternion::from<glm::quat>(glm::quat(2, 56, 23.824, 31.45)) == Try::Quaternion(56, 23.824, 31.45, 2));
+    REQUIRE(Try::Quaternion::from<Try::Vector4>(Try::Vector4(56, 23.824, 31.45, 2)) == Try::Quaternion(56, 23.824, 31.45, 2));
+}
+
 TEST_CASE( "Test Quaternion normalize", "[math][quaternion][normalize]" )
 {
     glm::quat glmq(3.14, 1.2, 0.5, 0.2);
@@ -46,7 +60,7 @@ TEST_CASE( "Test conversion of Quaternion from euler angles (in radians)", "[mat
     REQUIRE(abs(glmq.w - tryq.w) < feps);
 }
 
-TEST_CASE( "Test conversion of Quaternion to euler angles (in radians)", "[math][quaternion][to][euler angles]" )
+TEST_CASE( "Test conversion of Quaternion to euler angles (in radians)", "[math][quaternion][to][euler angles][vector3]" )
 {
     glm::vec3 glma(3.14, 1.2, 0.5);
     Try::Vector3 trya(3.14, 1.2, 0.5);

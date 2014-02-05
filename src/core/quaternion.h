@@ -89,7 +89,16 @@ namespace Try
 
         // Returns a quaternion which represents a rotation from one vector to another.
         static Quaternion rotationFromTo(const Vector3& from, const Vector3& to);
+
+        template<typename T>
+        static Quaternion from(const T& src);
     };
+
+    template<typename T>
+    Quaternion Quaternion::from(const T& src)
+    {
+        return Quaternion(src.x, src.y, src.z, src.w);
+    }
 }
 
 std::ostream& operator << (std::ostream& os, const Try::Quaternion& q);
