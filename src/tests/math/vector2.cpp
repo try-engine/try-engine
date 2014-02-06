@@ -33,3 +33,22 @@ TEST_CASE( "Test Vector2 from", "[math][vector][vector2][from]" )
     REQUIRE(Try::Vector2::from<CustomVector2>(CustomVector2(56, 23.824)) == Try::Vector2(56, 23.824));
     REQUIRE(Try::Vector2::from<glm::vec2>(glm::vec2(56, 23.824)) == Try::Vector2(56, 23.824));
 }
+
+TEST_CASE( "Test Vector2 dotProduct", "[math][vector][vector2][dotProduct]" )
+{
+    glm::vec2 glmv(34, 12.5);
+    Try::Vector2 tryv(34, 12.5);
+
+    REQUIRE(tryv.dotProduct(tryv) == glm::dot(glmv, glmv));
+}
+
+TEST_CASE( "Test Vector2 angleBetween", "[math][vector][vector2][angleBetween]" )
+{
+    glm::vec2 glmv(34, 12.5);
+    glm::vec2 glmv2(4, 1.5);
+
+    Try::Vector2 tryv(34, 12.5);
+    Try::Vector2 tryv2(4, 1.5);
+
+    REQUIRE(tryv.angleBetween(tryv2) == glm::angle(glm::normalize(glmv), glm::normalize(glmv2)));
+}

@@ -95,11 +95,7 @@ float Vector3::angleBetween(const Vector3& v) const
     Vector3 v1n = this->normalised();
     Vector3 v2n = v.normalised();
 
-    float temp = v1n.length();
-    if ((temp == 0.0f) || (v2n.length() == 0.0f))
-        return temp;
-
-    return acos(this->dotProduct(v));
+    return acos(v1n.dotProduct(v2n));
 }
 
 float Vector3::dotProduct(const Vector3& v) const
@@ -112,22 +108,27 @@ Vector3 Vector3::crossProduct(const Vector3& v) const
     return Vector3(((y * v.z) - (z * v.y)), ((z * v.x) - (x * v.z)), ((x * v.y) - (y * v.x)));
 }
 
-const Vector3 Vector3::operator + (const Vector3& v) const
+Vector3 Vector3::operator + (const Vector3& v) const
 {
     return Vector3((x + v.x), (y + v.y), (z + v.z));
 }
 
-const Vector3 Vector3::operator - (const Vector3& v) const
+Vector3 Vector3::operator - (const Vector3& v) const
 {
     return Vector3((x - v.x), (y - v.y), (z - v.z));
 }
 
-const Vector3 Vector3::operator * (float w) const
+Vector3 Vector3::operator * (const Vector3& v) const
+{
+    return this->crossProduct(v);
+}
+
+Vector3 Vector3::operator * (float w) const
 {
     return Vector3((x * w), (y * w), (z * w));
 }
 
-const Vector3 Vector3::operator / (float w) const
+Vector3 Vector3::operator / (float w) const
 {
     if (w == 0.0f)
         return *this;

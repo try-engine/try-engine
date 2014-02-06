@@ -59,12 +59,14 @@ namespace Try
         float sqrDistance(const Vector3& v) const;
         float angleBetween(const Vector3& v) const;
         float dotProduct(const Vector3& v) const;
+
         Vector3 crossProduct(const Vector3& v) const;
 
-        const Vector3 operator + (const Vector3& v) const;
-        const Vector3 operator - (const Vector3& v) const;
-        const Vector3 operator * (float w) const;
-        const Vector3 operator / (float w) const;
+        Vector3 operator + (const Vector3& v) const;
+        Vector3 operator - (const Vector3& v) const;
+        Vector3 operator * (const Vector3& v) const;
+        Vector3 operator * (float w) const;
+        Vector3 operator / (float w) const;
 
         float& operator [] (unsigned char i);
         const float operator [] (unsigned char i) const;

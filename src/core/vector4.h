@@ -54,10 +54,10 @@ namespace Try
         float sqrLength() const;
         float dotProduct(const Vector4& v) const;
 
-        const Vector4 operator + (const Vector4& v) const;
-        const Vector4 operator - (const Vector4& v) const;
-        const Vector4 operator * (float k) const;
-        const Vector4 operator / (float k) const;
+        Vector4 operator + (const Vector4& v) const;
+        Vector4 operator - (const Vector4& v) const;
+        Vector4 operator * (float k) const;
+        Vector4 operator / (float k) const;
 
         float& operator [] (unsigned char i);
         const float operator [] (unsigned char i) const;

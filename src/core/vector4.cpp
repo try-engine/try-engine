@@ -82,22 +82,22 @@ float Vector4::dotProduct(const Vector4& v) const
     return ((x * v.x) + (y * v.y) + (z * v.z) + (w * v.w));
 }
 
-const Vector4 Vector4::operator + (const Vector4& v) const
+Vector4 Vector4::operator + (const Vector4& v) const
 {
     return Vector4((x + v.x), (y + v.y), (z + v.z), (w + v.w));
 }
 
-const Vector4 Vector4::operator - (const Vector4& v) const
+Vector4 Vector4::operator - (const Vector4& v) const
 {
     return Vector4((x - v.x), (y - v.y), (z - v.z), (w - v.w));
 }
 
-const Vector4 Vector4::operator * (float k) const
+Vector4 Vector4::operator * (float k) const
 {
     return Vector4((x * k), (y * k), (z * k), (w * k));
 }
 
-const Vector4 Vector4::operator / (float k) const
+Vector4 Vector4::operator / (float k) const
 {
     if (k == 0.0f)
         return *this;

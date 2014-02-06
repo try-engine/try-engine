@@ -89,11 +89,7 @@ float Vector2::angleBetween(const Vector2& v) const
     Vector2 v1n = this->normalised();
     Vector2 v2n = v.normalised();
 
-    float temp = v1n.length();
-    if ((temp == 0.0f) || (v2n.length() == 0.0f))
-        return temp;
-
-    return acos(this->dotProduct(v));
+    return acos(v1n.dotProduct(v2n));
 }
 
 float Vector2::dotProduct(const Vector2& v) const
@@ -101,22 +97,22 @@ float Vector2::dotProduct(const Vector2& v) const
     return ((x * v.x) + (y * v.y));
 }
 
-const Vector2 Vector2::operator + (const Vector2& v) const
+Vector2 Vector2::operator + (const Vector2& v) const
 {
     return Vector2((x + v.x), (y + v.y));
 }
 
-const Vector2 Vector2::operator - (const Vector2& v) const
+Vector2 Vector2::operator - (const Vector2& v) const
 {
     return Vector2((x - v.x), (y - v.y));
 }
 
-const Vector2 Vector2::operator * (float w) const
+Vector2 Vector2::operator * (float w) const
 {
     return Vector2((x * w), (y * w));
 }
 
-const Vector2 Vector2::operator / (float w) const
+Vector2 Vector2::operator / (float w) const
 {
     if (w == 0.0f)
         return *this;

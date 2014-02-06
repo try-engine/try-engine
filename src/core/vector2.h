@@ -59,10 +59,10 @@ namespace Try
         float angleBetween(const Vector2& v) const;
         float dotProduct(const Vector2& v) const;
 
-        const Vector2 operator + (const Vector2& v) const;
-        const Vector2 operator - (const Vector2& v) const;
-        const Vector2 operator * (float w) const;
-        const Vector2 operator / (float w) const;
+        Vector2 operator + (const Vector2& v) const;
+        Vector2 operator - (const Vector2& v) const;
+        Vector2 operator * (float w) const;
+        Vector2 operator / (float w) const;
 
         float& operator [] (unsigned char i);
         const float operator [] (unsigned char i) const;

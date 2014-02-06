@@ -33,3 +33,30 @@ TEST_CASE( "Test Vector3 from", "[math][vector][vector3][from]" )
     REQUIRE(Try::Vector3::from<CustomVector3>(CustomVector3(56, 23.824, 31.45)) == Try::Vector3(56, 23.824, 31.45));
     REQUIRE(Try::Vector3::from<glm::vec3>(glm::vec3(56, 23.824, 31.45)) == Try::Vector3(56, 23.824, 31.45));
 }
+
+TEST_CASE( "Test Vector3 dotProduct", "[math][vector][vector3][dotProduct]" )
+{
+    glm::vec3 glmv(34, 12.5, 5.76);
+    Try::Vector3 tryv(34, 12.5, 5.76);
+
+    REQUIRE(tryv.dotProduct(tryv) == glm::dot(glmv, glmv));
+}
+
+TEST_CASE( "Test Vector3 crossProduct", "[math][vector][vector3][crossProduct]" )
+{
+    glm::vec3 glmv(34, 12.5, 5.76);
+    Try::Vector3 tryv(34, 12.5, 5.76);
+
+    REQUIRE(tryv.crossProduct(tryv) == Try::Vector3::from<glm::vec3>(glm::cross(glmv, glmv)));
+}
+
+TEST_CASE( "Test Vector3 angleBetween", "[math][vector][vector3][angleBetween]" )
+{
+    glm::vec3 glmv(34, 12.5, 2.6);
+    glm::vec3 glmv2(4, 1.5, 4.5);
+
+    Try::Vector3 tryv(34, 12.5, 2.6);
+    Try::Vector3 tryv2(4, 1.5, 4.5);
+
+    REQUIRE(tryv.angleBetween(tryv2) == glm::angle(glm::normalize(glmv), glm::normalize(glmv2)));
+}

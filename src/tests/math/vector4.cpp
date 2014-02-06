@@ -33,3 +33,11 @@ TEST_CASE( "Test Vector4 from", "[math][vector][vector4][from]" )
     REQUIRE(Try::Vector4::from<CustomVector4>(CustomVector4(56, 23.824, 31.45, 2)) == Try::Vector4(56, 23.824, 31.45, 2));
     REQUIRE(Try::Vector4::from<glm::vec4>(glm::vec4(56, 23.824, 31.45, 2)) == Try::Vector4(56, 23.824, 31.45, 2));
 }
+
+TEST_CASE( "Test Vector4 dotProduct", "[math][vector][vector4][dotProduct]" )
+{
+    glm::vec4 glmv(34, 12.5, 5.76, 2.3);
+    Try::Vector4 tryv(34, 12.5, 5.76, 2.3);
+
+    REQUIRE(tryv.dotProduct(tryv) == glm::dot(glmv, glmv));
+}
