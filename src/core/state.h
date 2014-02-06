@@ -40,13 +40,14 @@ namespace Try
         FSM* owner() const;
         void setOwner(FSM* owner);
 
-        virtual bool enter();
-        virtual bool leave();
+        virtual bool enter() { return true; }
+        virtual bool leave() { return true; }
 
-        virtual State* copy(FSM* owner) const;
+        virtual State* copy(FSM* owner) const { return 0; }
     };
     
     typedef std::vector<State*> StateList;
+    typedef unsigned int StateId;
 }
 
 #endif // TRY_STATE_H

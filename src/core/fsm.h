@@ -22,39 +22,35 @@
 #ifndef TRY_FSM_H
 #define TRY_FSM_H
 
-#include "property.h"
 #include "state.h"
+#include "listenable.h"
 
 namespace Try
 {
-    typedef unsigned int StateId;
-    
-    class FSM : public Property
+    class FSM;
+
+    class FSMListener
     {
     public:
-        static PropertyName name;
+        virtual void onStarted(FSM* fsm) {}
+        virtual void onStopped(FSM* fsm) {}
+        virtual void onStateAdded(FSM* fsm, const StateId& state_id) {}
+        virtual void onStateRemoved(FSM* fsm, const StateId& state_id) {}
+        virtual void onStateDeleted(FSM* fsm, const StateId& state_id) {}
+        virtual void onStateChanging(FSM* fsm, const StateId& state_id, const StateId& curr_state_id) {}
+        virtual void onStateChanged(FSM* fsm, const StateId& state_id, const StateId& prev_state_id) {}
+    };
 
-        struct Msg
-        {
-            static MessageName started;
-            static MessageName updateRequest;
-            static MessageName exitRequest;
-            static MessageName stateAdded;
-            static MessageName stateRemoved;
-            static MessageName stateDeleted;
-            static MessageName stateChanging;
-            static MessageName stateChanged;
-        };
-
+    class FSM : public Listenable<FSMListener>
+    {
     protected:
         StateList m_states;
         StateId m_prevState;
         StateId m_currentState;
-        bool m_started;
 	    
     public:
-        FSM(Object* owner, const StateList& states = StateList());
-        FSM(Object* owner, State* state);
+        FSM(const StateList& states = StateList());
+        FSM(State* state);
         virtual ~FSM();
 
         int stateCount() const;
@@ -77,11 +73,12 @@ namespace Try
         void deleteState(State* state);
         void deleteState(const StateId& id);
         void deleteAllStates();
-	    
+
         bool setCurrentState(const StateId& id);
+        bool start();
         bool reset();
 
-        Property* copy(Object* owner) const;
+        FSM* copy() const;
     };
 }
 

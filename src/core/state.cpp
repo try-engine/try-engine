@@ -62,18 +62,3 @@ void State::setOwner(FSM* owner)
         }
     }
 }
-
-bool State::enter()
-{
-    return true;
-}
-
-bool State::leave()
-{
-    return true;
-}
-
-State* State::copy(FSM* owner) const
-{
-    return 0;
-}

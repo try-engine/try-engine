@@ -25,29 +25,17 @@
 
 using namespace Try;
 
-PropertyName FSM::name = "try.core.fsm";
-
-MessageName FSM::Msg::stateAdded = "stateAdded";
-MessageName FSM::Msg::stateRemoved = "stateRemoved";
-MessageName FSM::Msg::stateDeleted = "stateDeleted";
-MessageName FSM::Msg::stateChanging = "stateChanging";
-MessageName FSM::Msg::stateChanged = "stateChanged";
-
-FSM::FSM(Object* owner, const StateList& states)
-    :   Property(FSM::name, owner),
-        m_prevState(0),
-        m_currentState(0),
-        m_started(false)
+FSM::FSM(const StateList& states)
+    :   m_prevState(0),
+        m_currentState(0)
 {
     for (int i = 0; i < states.size(); i++)
         this->addState(states[i]);
 }
 
-FSM::FSM(Object* owner, State* state)
-    :   Property(FSM::name, owner),
-        m_prevState(0),
-        m_currentState(0),
-        m_started(false)
+FSM::FSM(State* state)
+    :   m_prevState(0),
+        m_currentState(0)
 {
     this->addState(state);
 }
@@ -64,8 +52,8 @@ int FSM::stateCount() const
 
 State* FSM::state(const StateId& id) const
 {
-    if (id < m_states.size())
-        return m_states.at(id);
+    if (id > 0 && id <= m_states.size())
+        return m_states.at(id-1);
         
     return 0;
 }
@@ -94,7 +82,7 @@ StateId FSM::stateId(State* state) const
 {
     for (int i = 0; i < m_states.size(); i++)
         if (m_states[i] == state)
-            return i;
+            return i+1;
             
     return 0;
 }
@@ -110,7 +98,7 @@ bool FSM::hasState(State* state) const
 
 bool FSM::hasState(const StateId& id) const
 {
-    if (id < m_states.size())
+    if (id > 0 && id <= m_states.size())
         return true;
 
     return false;
@@ -128,7 +116,9 @@ StateId FSM::addState(State* state)
 
         state->setOwner(this);
 
-        this->notifyMessage(Message(FSM::Msg::stateAdded, id));
+        FSM::list_type listeners = this->listeners();
+        for (FSM::list_type::const_iterator it=listeners.begin(); it != listeners.end(); ++it)
+            (*it)->onStateAdded(this, id);
 
         return id;
     }
@@ -141,10 +131,12 @@ void FSM::removeState(State* state)
     if (this->hasState(state))
     {
         StateId id = this->stateId(state);
-        m_states.erase(m_states.begin()+id);
+        m_states.erase(m_states.begin()+id-1);
         state->setOwner(0);
 
-        this->notifyMessage(Message(FSM::Msg::stateRemoved, id));
+        FSM::list_type listeners = this->listeners();
+        for (FSM::list_type::const_iterator it=listeners.begin(); it != listeners.end(); ++it)
+            (*it)->onStateRemoved(this, id);
     }
 }
 
@@ -152,18 +144,20 @@ void FSM::removeState(const StateId& id)
 {
     if (this->hasState(id))
     {
-        State* state = m_states[id];
-        m_states.erase(m_states.begin()+id);
+        State* state = m_states[id-1];
+        m_states.erase(m_states.begin()+id-1);
         state->setOwner(0);
 
-        this->notifyMessage(Message(FSM::Msg::stateRemoved, id));
+        FSM::list_type listeners = this->listeners();
+        for (FSM::list_type::const_iterator it=listeners.begin(); it != listeners.end(); ++it)
+            (*it)->onStateRemoved(this, id);
     }
 }
 
 void FSM::removeAllStates()
 {
     for (int i = m_states.size(); i > 0; i--)
-        this->removeState(i-1);
+        this->removeState(i);
 }
 
 void FSM::deleteState(State* state)
@@ -174,7 +168,9 @@ void FSM::deleteState(State* state)
         m_states.erase(m_states.begin()+id);
         delete state;
 
-        this->notifyMessage(Message(FSM::Msg::stateDeleted, id));
+        FSM::list_type listeners = this->listeners();
+        for (FSM::list_type::const_iterator it=listeners.begin(); it != listeners.end(); ++it)
+            (*it)->onStateDeleted(this, id);
     }
 }
 
@@ -182,32 +178,35 @@ void FSM::deleteState(const StateId& id)
 {
     if (this->hasState(id))
     {
-        State* state = m_states[id];
-        m_states.erase(m_states.begin()+id);
+        State* state = m_states[id-1];
+        m_states.erase(m_states.begin()+id-1);
         delete state;
 
-        this->notifyMessage(Message(FSM::Msg::stateDeleted, id));
+        FSM::list_type listeners = this->listeners();
+        for (FSM::list_type::const_iterator it=listeners.begin(); it != listeners.end(); ++it)
+            (*it)->onStateDeleted(this, id);
     }
 }
 
 void FSM::deleteAllStates()
 {
     for (int i = m_states.size(); i > 0; i--)
-        this->deleteState(i-1);
+        this->deleteState(i);
 }
 
 bool FSM::setCurrentState(const StateId& id)
 {
+    FSM::list_type listeners = this->listeners();
+
     State* new_state = this->state(id);
-    if (!new_state)
+    if (id && !new_state)
         return false;
         
-    if (m_started)
+    if (m_currentState)
     {
-        if (id == m_currentState)
-            return true;
-
-        this->notifyMessage(Message(FSM::Msg::stateChanging, id, m_currentState));
+        if (id != m_currentState)
+            for (FSM::list_type::const_iterator it=listeners.begin(); it != listeners.end(); ++it)
+                (*it)->onStateChanging(this, id, m_currentState);
 
         State* old_state = this->currentState();
         if (old_state && !old_state->leave())
@@ -216,16 +215,39 @@ bool FSM::setCurrentState(const StateId& id)
         m_prevState = m_currentState;
     }
 
-    if (!new_state->enter())
+    if (new_state && !new_state->enter())
         return false;
         
     m_currentState = id;
 
-    this->notifyMessage(Message(FSM::Msg::stateChanged, id, m_prevState));
+    if (m_prevState != m_currentState)
+    {
+        FSM::list_type::const_iterator it;
 
-    m_started = true;
+        // Notify start.
+        if (!m_prevState && m_currentState)
+            for (it=listeners.begin(); it != listeners.end(); ++it)
+                (*it)->onStarted(this);
+
+        // Notify change.
+        for (it=listeners.begin(); it != listeners.end(); ++it)
+            (*it)->onStateChanged(this, id, m_prevState);
+
+        // Notify stop.
+        if (m_prevState && !m_currentState)
+            for (it=listeners.begin(); it != listeners.end(); ++it)
+                (*it)->onStopped(this);
+    }
     
     return true;
+}
+
+bool FSM::start()
+{
+    if (this->stateCount() > 0)
+        return this->setCurrentState(1);
+
+    return false;
 }
 
 bool FSM::reset()
@@ -233,9 +255,9 @@ bool FSM::reset()
     return this->setCurrentState(0);
 }
 
-Property* FSM::copy(Object* owner) const
+FSM* FSM::copy() const
 {
-    FSM* copy = new FSM(owner);
+    FSM* copy = new FSM();
 
     for (int i=0; i<this->stateCount(); i++)
         copy->addState(m_states.at(i)->copy(copy));
