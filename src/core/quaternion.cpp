@@ -72,12 +72,12 @@ Quaternion::Quaternion(float angle, const Vector3& axis)
 {
     Vector3 naxis = axis.normalised();
 
-    const float hangle = angle * DegToRad * 0.5f;
-    const double sina = sinf(hangle);
+    const float hangle = angle * 0.5f;
+    const double sinha = sinf(hangle);
 
-    x = naxis.x * sina;
-    y = naxis.y * sina;
-    z = naxis.z * sina;
+    x = naxis.x * sinha;
+    y = naxis.y * sinha;
+    z = naxis.z * sinha;
     w = cosf(hangle);
 }
 

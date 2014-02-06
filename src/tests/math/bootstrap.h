@@ -23,6 +23,7 @@
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_inverse.hpp"
 #include "glm/gtc/quaternion.hpp"
+#include "glm/gtx/vector_angle.hpp"
 #include <try.h>
 #include "catch.hpp"
 
