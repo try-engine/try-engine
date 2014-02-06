@@ -48,16 +48,9 @@ StringList Logger::logs(LogPriority max_level) const
 {
     StringList logs;
 
-    LogList::const_iterator it = m_logs.begin();
-    LogList::const_iterator end = m_logs.end();
-
-    while (it < end)
-    {
+    for (LogList::const_iterator it = m_logs.begin(); it < m_logs.end(); ++it)
         if (it->level <= max_level)
             logs.push_back(it->msg);
-
-        ++it;
-    }
 
     return logs;
 }
@@ -69,16 +62,9 @@ Logger::Logger()
 
 void Logger::flush(LogPriority max_level)
 {
-    LogList::const_iterator it = m_logs.begin();
-    LogList::const_iterator end = m_logs.end();
-
-    while (it < end)
-    {
+    for (LogList::const_iterator it = m_logs.begin(); it < m_logs.end(); ++it)
         if (it->level <= max_level)
             std::cout << it->msg << std::endl;
-
-        ++it;
-    }
 
     m_logs.clear();
 }
