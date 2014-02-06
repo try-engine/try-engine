@@ -22,7 +22,7 @@
 #ifndef TRY_H
 #define TRY_H
 
-#include "alias.h"
+#include "base.h"
 #include "str.h"
 #include "vector2.h"
 #include "vector3.h"

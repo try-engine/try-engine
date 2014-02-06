@@ -1,5 +1,5 @@
 SET(TRYCORE_SOURCES
-    alias.h
+    base.h
     str.cpp
     vector2.cpp
     vector3.cpp

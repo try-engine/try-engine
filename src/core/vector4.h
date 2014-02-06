@@ -22,7 +22,7 @@
 #ifndef TRY_VECTOR4_H
 #define TRY_VECTOR4_H
 
-#include "alias.h"
+#include "base.h"
 
 namespace Try
 {

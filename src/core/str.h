@@ -22,7 +22,7 @@
 #ifndef TRY_STRING_H
 #define TRY_STRING_H
 
-#include "alias.h"
+#include "base.h"
 #include <string>
 
 namespace Try
