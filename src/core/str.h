@@ -62,6 +62,7 @@ namespace Try
         String& insert(String::iterator& i, String::const_iterator& begin, String::const_iterator& end);
         String& swap(String& str);
         String& clear();
+        String& slice(int start, unsigned int count = 0);
 
         String& operator += (const String& str);
 
@@ -89,6 +90,7 @@ namespace Try
         String rtrimmed() const;
         String uppercased() const;
         String lowercased() const;
+        String sliced(int start, unsigned int count = 0);
 
         unsigned int length() const;
 

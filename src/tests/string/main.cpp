@@ -32,3 +32,33 @@ TEST_CASE( "Test generating strings from different sources using 'from<T>(...)'"
     REQUIRE(Try::String::from<float>(23.56) == "23.56");
     REQUIRE(Try::String::from<Try::Vector3>(Try::Vector3(23.56, 12, 45)) == "Vector3(23.56, 12, 45)");
 }
+
+TEST_CASE( "Test String slice", "[string][slice]" )
+{
+    Try::String test("Try! Engine is a very cool project...");
+
+    test.slice(0, 34);
+
+    REQUIRE(test == "Try! Engine is a very cool project");
+
+    test.slice(49);
+
+    REQUIRE(test == "a very cool project");
+
+    test.slice(0);
+
+    REQUIRE(test == "a very cool project");
+
+    test.slice(-13);
+
+    REQUIRE(test == "cool project");
+
+    test.slice(-20);
+
+    REQUIRE(test == "project");
+
+    Try::String test2(test.sliced(0, 3));
+
+    REQUIRE(test == "project");
+    REQUIRE(test2 == "pro");
+}

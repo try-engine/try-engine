@@ -124,6 +124,26 @@ String& String::clear()
     return *this;
 }
 
+String& String::slice(int start, unsigned int count)
+{
+    unsigned int size = m_str.size();
+    unsigned int pos = std::abs(start) % size;
+
+    if (start < 0 && pos > 0)
+        pos = size - pos + 1;
+
+    if (count == 0)
+        count = size;
+
+    count = std::min(count, (size - pos));
+
+    // Slicing is not needed if (pos == 0) and (count == size).
+    if (pos != 0 || count < size)
+        m_str = m_str.substr(pos, count);
+
+    return *this;
+}
+
 String& String::operator += (const String& str)
 {
     return this->append(str);
@@ -223,6 +243,11 @@ String String::uppercased() const
 String String::lowercased() const
 {
     return boost::algorithm::to_lower_copy(m_str);
+}
+
+String String::sliced(int start, unsigned int count)
+{
+    return String(*this).slice(start, count);
 }
 
 unsigned int String::length() const
