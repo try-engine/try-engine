@@ -54,19 +54,17 @@ namespace Try
 
     protected:
         String m_name;
-        PropertyList m_properties;
+        PropertyMap m_properties;
         MessageCallbackMap m_callbacks;
 
     public:
-        Object(const String& name, const PropertyList& properties = PropertyList());
+        Object(const String& name);
         virtual ~Object();
 
-        int addProperty(Property* property);
-        void removeProperty(int id);
+        String addProperty(Property* property);
         void removeProperty(const String& name);
         void removeProperty(Property* property);
         void removeAllProperties();
-        void deleteProperty(int id);
         void deleteProperty(const String& name);
         void deleteProperty(Property* property);
         void deleteAllProperties();
@@ -82,17 +80,13 @@ namespace Try
         bool is(const String& name) const;
 
         PropertyList properties() const;
-        int propertyCount() const;
         StringList propertyNames() const;
+        int propertyCount() const;
 
-        Property* property(int id) const;
         Property* property(const String& name) const;
 
         template<class T>
         T* property() const;
-
-        template<class T>
-        T* property(int id) const { return static_cast<T*>(this->property(id)); }
 
         template<class T>
         T* property(const String& name) const { return static_cast<T*>(this->property(name)); }
@@ -103,19 +97,20 @@ namespace Try
         static ObjectList deserialize(XmlNode* node);
 
     protected:
-        int propertyIdFromName(const String& name) const;
-
         static void notifyMessage(const Message &msg, Object* sender, Property* property);
     };
 
     template<class T>
     T* Object::property() const
     {
-        for (int i=0; i<this->propertyCount(); i++)
+        PropertyMap::const_iterator it = m_properties.begin();
+        while (it != m_properties.end())
         {
-            T* prop = dynamic_cast<T*>(this->property(i));
+            T* prop = dynamic_cast<T*>(this->property(it->second->name()));
             if (prop)
                 return prop;
+
+            ++it;
         }
 
         return 0;

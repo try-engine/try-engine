@@ -30,37 +30,32 @@ TEST_CASE( "Test a simple message sequence", "[behaviors][objects][properties][m
 
     {
         Try::Object obj1("TestObject1");
-        Try::Object obj2("TestObject2");
 
         tb.watchObject(&obj1);
-        tb.watchObject(&obj2);
 
         TestProperty1 tp11(&obj1);
         TestProperty2 tp21(&obj1);
-        TestProperty2 tp22(&obj2);
-        TestProperty1 tp12(&obj2);
     }
 
     Try::StringList ref_logs;
     ref_logs.push_back("Received <::behaviorAdded> with 1 params from <TestObject1>.\n");
-    ref_logs.push_back("Received <::behaviorAdded> with 1 params from <TestObject2>.\n");
-    ref_logs.push_back("Received <::addedProperty> with 1 params from <TestObject1>.\n");
+
+    ref_logs.push_back("Received <::addingProperty> with 1 params from <TestObject1>.\n");
     ref_logs.push_back("Received <TestProperty1::propertyAdded> with 0 params from <TestObject1>.\n");
+
     ref_logs.push_back("Received <TestProperty1::TestMessage1> with 2 params from <TestObject1>.\n");
-    ref_logs.push_back("Received <::addedProperty> with 1 params from <TestObject1>.\n");
+
+    ref_logs.push_back("Received <::addingProperty> with 1 params from <TestObject1>.\n");
     ref_logs.push_back("Received <TestProperty2::propertyAdded> with 0 params from <TestObject1>.\n");
+
     ref_logs.push_back("Received <TestProperty2::TestMessage2> with 1 params from <TestObject1>.\n");
-    ref_logs.push_back("Received <::addedProperty> with 1 params from <TestObject2>.\n");
-    ref_logs.push_back("Received <TestProperty2::propertyAdded> with 0 params from <TestObject2>.\n");
-    ref_logs.push_back("Received <TestProperty2::TestMessage2> with 1 params from <TestObject2>.\n");
-    ref_logs.push_back("Received <::addedProperty> with 1 params from <TestObject2>.\n");
-    ref_logs.push_back("Received <TestProperty1::propertyAdded> with 0 params from <TestObject2>.\n");
-    ref_logs.push_back("Received <TestProperty1::TestMessage1> with 2 params from <TestObject2>.\n");
-    ref_logs.push_back("Received <::propertyRemoved> with 1 params from <TestObject2>.\n");
-    ref_logs.push_back("Received <::propertyRemoved> with 1 params from <TestObject2>.\n");
+
+    ref_logs.push_back("Received <TestProperty2::removingProperty> with 0 params from <TestObject1>.\n");
     ref_logs.push_back("Received <::propertyRemoved> with 1 params from <TestObject1>.\n");
+
+    ref_logs.push_back("Received <TestProperty1::removingProperty> with 0 params from <TestObject1>.\n");
     ref_logs.push_back("Received <::propertyRemoved> with 1 params from <TestObject1>.\n");
-    ref_logs.push_back("Received <::removingBehavior> with 1 params from <TestObject2>.\n");
+
     ref_logs.push_back("Received <::removingBehavior> with 1 params from <TestObject1>.\n");
 
     REQUIRE(tb.logs() == ref_logs);

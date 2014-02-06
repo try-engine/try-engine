@@ -31,6 +31,7 @@ namespace Try
     class Property;
 
     typedef std::vector<Property*> PropertyList;
+    typedef std::map<String,Property*> PropertyMap;
     typedef const String PropertyName;
 
     class Property

@@ -44,9 +44,10 @@ void Property::detach()
     if (m_owner)
     {
         Object* owner = m_owner;
-        m_owner = 0;
 
         owner->removeProperty(this);
+
+        m_owner = 0;
     }
 }
 

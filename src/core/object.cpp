@@ -28,7 +28,7 @@
 using namespace Try;
 
 MessageName Object::Msg::renamed = "renamed";
-MessageName Object::Msg::addingProperty = "addedProperty";
+MessageName Object::Msg::addingProperty = "addingProperty";
 MessageName Object::Msg::propertyAdded = "propertyAdded";
 MessageName Object::Msg::removingProperty = "removingProperty";
 MessageName Object::Msg::propertyRemoved = "propertyRemoved";
@@ -43,9 +43,8 @@ inline void rapidxml::parse_error_handler( const char *what, void *where )
 {
 }
 
-Object::Object(const String& name, const PropertyList& properties)
-    :   m_name(name),
-        m_properties(properties)
+Object::Object(const String& name)
+    :   m_name(name)
 {
 }
 
@@ -55,65 +54,61 @@ Object::~Object()
     this->removeAllProperties();
 }
 
-int Object::addProperty(Property* property)
+String Object::addProperty(Property* property)
 {
     if (property && property->owner() == this)
     {
-        int id = this->propertyIdFromName(property->name());
+        String name = property->name();
 
-        if (id == -1)
+        if (m_properties.find(name) == m_properties.end())
         {
             this->notifyMessage(Message(Object::Msg::addingProperty, property), this, 0);
 
-            id = m_properties.size();
-            m_properties.push_back(property);
+            m_properties[name] = property;
 
             this->notifyMessage(Message(Object::Msg::propertyAdded), property);
         }
 
-        return id;
+        return name;
     }
     
-    return -1;
+    return "";
 }
 
-void Object::removeProperty(int id)
+void Object::removeProperty(const String& name)
 {
-    if (id > -1 && id < this->propertyCount())
+    if (m_properties.find(name) != m_properties.end())
     {
-        Property* prop = m_properties[id];
+        Property* prop = m_properties[name];
 
         this->notifyMessage(Message(Object::Msg::removingProperty), prop);
 
-        m_properties.erase(m_properties.begin()+id);
+        m_properties.erase(name);
         prop->detach();
 
         this->notifyMessage(Message(Object::Msg::propertyRemoved, prop), this, 0);
     }
 }
 
-void Object::removeProperty(const String& name)
-{
-    this->removeProperty(this->propertyIdFromName(name));
-}
-
 void Object::removeProperty(Property* property)
 {
-    if (property)
+    if (property && property->owner() == this)
         this->removeProperty(property->name());
 }
 
 void Object::removeAllProperties()
 {
-    for (int i=this->propertyCount(); i>0; i--)
-        this->removeProperty(i-1);
+    PropertyMap::const_iterator it(m_properties.begin());
+
+    for (; it != m_properties.end(); ++it)
+        this->removeProperty(it->first);
 }
 
-void Object::deleteProperty(int id)
+void Object::deleteProperty(const String& name)
 {
-    if (id > -1 && id < this->propertyCount())
+    if (m_properties.find(name) != m_properties.end())
     {
-        Property* prop = m_properties[id];
+        Property* prop = m_properties[name];
 
         this->notifyMessage(Message(Object::Msg::deletingProperty), prop);
 
@@ -125,21 +120,18 @@ void Object::deleteProperty(int id)
     }
 }
 
-void Object::deleteProperty(const String& name)
-{
-    this->deleteProperty(this->propertyIdFromName(name));
-}
-
 void Object::deleteProperty(Property* property)
 {
-    if (property)
+    if (property && property->owner() == this)
         this->deleteProperty(property->name());
 }
 
 void Object::deleteAllProperties()
 {
-    for (int i=this->propertyCount(); i>0; i--)
-        this->deleteProperty(i-1);
+    PropertyMap::const_iterator it(m_properties.begin());
+
+    for (; it != m_properties.end(); ++it)
+        this->deleteProperty(it->first);
 }
 
 void Object::notifyMessage(const Message& msg, Property* sender)
@@ -176,13 +168,10 @@ void Object::unregisterAllCallbacks()
 {
     if (m_callbacks.size() > 0)
     {
-        MessageCallbackMap::iterator it = m_callbacks.begin();
+        MessageCallbackMap::const_iterator it(m_callbacks.begin());
 
-        while (it != m_callbacks.end())
-        {
+        for (; it != m_callbacks.end(); ++it)
             this->unregisterCallback(it->first);
-            it = m_callbacks.begin();
-        }
     }
 }
 
@@ -210,7 +199,24 @@ bool Object::is(const String& name) const
 
 PropertyList Object::properties() const
 {
-    return m_properties;
+    PropertyList properties;
+    PropertyMap::const_iterator it(m_properties.begin());
+
+    for (; it != m_properties.end(); ++it)
+        properties.push_back(it->second);
+
+    return properties;
+}
+
+StringList Object::propertyNames() const
+{
+    StringList names;
+    PropertyMap::const_iterator it(m_properties.begin());
+
+    for (; it != m_properties.end(); ++it)
+        names.push_back(it->first);
+
+    return names;
 }
 
 int Object::propertyCount() const
@@ -218,40 +224,23 @@ int Object::propertyCount() const
     return m_properties.size();
 }
 
-StringList Object::propertyNames() const
-{
-    StringList names;
-
-    for (int i=0; i < this->propertyCount(); i++)
-    {
-        Property* property = this->property(i);
-        names.push_back(property->name());
-    }
-
-    return names;
-}
-
-Property* Object::property(int id) const
-{
-    if (id > -1 && id < this->propertyCount())
-        return m_properties[id];
-
-    return 0;
-}
-
 Property* Object::property(const String& name) const
 {
-    return this->property(this->propertyIdFromName(name));
+    if (m_properties.find(name) != m_properties.end())
+        return m_properties.at(name);
+
+    return 0;
 }
 
 Object* Object::copy() const
 {
     Object* copy_obj = new Object(this->name() + COPY_SUFFIX);
 
-    int count = this->propertyCount();
-    for (int i=0; i<count; i++)
+    PropertyMap::const_iterator it(m_properties.begin());
+
+    for (; it != m_properties.end(); ++it)
     {
-        Property* copy_prop = this->property(i)->copy(copy_obj);
+        Property* copy_prop = it->second->copy(copy_obj);
         copy_obj->addProperty(copy_prop);
     }
 
@@ -264,8 +253,10 @@ String Object::serialize() const
 
     output += String("<object name=\"") + this->name() + "\">\n";
 
-    for (int i=0; i<this->propertyCount(); i++)
-        output += this->property(i)->serialize();
+    PropertyMap::const_iterator it(m_properties.begin());
+
+    for (; it != m_properties.end(); ++it)
+        output += it->second->serialize();
 
     output += "</object>\n";
 
@@ -296,18 +287,6 @@ ObjectList Object::deserialize(XmlNode* node)
     }
 
     return results;
-}
-
-int Object::propertyIdFromName(const String& name) const
-{
-    for (int i=0; i < this->propertyCount(); i++)
-    {
-        Property* property = this->property(i);
-        if (property->name() == name)
-            return i;
-    }
-
-    return -1;
 }
 
 void Object::notifyMessage(const Message& msg, Object* sender, Property* property)
