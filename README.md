@@ -11,6 +11,6 @@ Introduction
  * *Horde3D* for *Graphics* (http://www.horde3d.org)
  * *Bullet* for *Physics* (http://bulletphysics.org)
  * *OpenAL* for *Audio* (http://connect.creativelabs.com/openal)
- * *Recast/Detour* for *AI* (http://code.google.com/p/recastnavigation)
+ * *Recast/Detour* for *AI* (https://github.com/memononen/recastnavigation)
  * *Python* for *Scripting* (http://www.python.org)
  * *CMake* for *Building* (http://www.cmake.org)
