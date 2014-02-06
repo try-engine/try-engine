@@ -89,17 +89,7 @@ namespace Try
         Property* property(const String& name) const;
 
         template<class T>
-        T* property() const
-        {
-            for (int i=0; i<this->propertyCount(); i++)
-            {
-                T* prop = dynamic_cast<T*>(this->property(i));
-                if (prop)
-                    return prop;
-            }
-
-            return 0;
-        }
+        T* property() const;
 
         template<class T>
         T* property(int id) const { return static_cast<T*>(this->property(id)); }
@@ -117,6 +107,19 @@ namespace Try
 
         static void notifyMessage(const Message &msg, Object* sender, Property* property);
     };
+
+    template<class T>
+    T* Object::property() const
+    {
+        for (int i=0; i<this->propertyCount(); i++)
+        {
+            T* prop = dynamic_cast<T*>(this->property(i));
+            if (prop)
+                return prop;
+        }
+
+        return 0;
+    }
 }
 
 #endif // TRY_OBJECT_H
