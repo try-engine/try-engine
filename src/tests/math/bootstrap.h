@@ -26,4 +26,4 @@
 #include <try.h>
 #include "catch.hpp"
 
-const float feps = 0.0001;
+const float feps = 0.005;

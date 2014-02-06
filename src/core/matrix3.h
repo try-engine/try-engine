@@ -88,7 +88,20 @@ namespace Try
         bool operator != (const Matrix3& mat) const;
 
         bool isDiagonal() const;
+
+        template<class T>
+        static Matrix3 from(const T& src);
     };
+
+    template<class T>
+    Matrix3 Matrix3::from(const T& src)
+    {
+        return Matrix3(
+            src[0][0], src[1][0], src[2][0],
+            src[0][1], src[1][1], src[2][1],
+            src[0][2], src[1][2], src[2][2]
+        );
+    }
 }
 
 std::ostream& operator << (std::ostream& os, const Try::Matrix3& m);

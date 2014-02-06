@@ -21,6 +21,22 @@
 
 #include "bootstrap.h"
 
+TEST_CASE( "Test Matrix3 from", "[math][matrix][matrix3][from]" )
+{
+    glm::mat3x3 glmm(
+        3.14, 1.2, 0.5,
+        3, 1, 0.2,
+        0, 2, 4
+    );
+    Try::Matrix3 trym(
+        3.14, 1.2, 0.5,
+        3, 1, 0.2,
+        0, 2, 4
+    );
+
+    REQUIRE(Try::Matrix3::from<glm::mat3x3>(glmm).transposed() == trym);
+}
+
 TEST_CASE( "Test Matrix3 transpose", "[math][matrix][matrix3][transpose]" )
 {
     Try::Matrix3 trym(
@@ -64,13 +80,13 @@ TEST_CASE( "Test Matrix3 invert", "[math][matrix][matrix3][invert]" )
 
     REQUIRE(trym2 == trym.inverted());
 
-    REQUIRE(abs(glmm2[0][0] - trym2.column(0)[0]) < feps);
-    REQUIRE(abs(glmm2[0][1] - trym2.column(0)[1]) < feps);
-    REQUIRE(abs(glmm2[0][2] - trym2.column(0)[2]) < feps);
-    REQUIRE(abs(glmm2[1][0] - trym2.column(1)[0]) < feps);
-    REQUIRE(abs(glmm2[1][1] - trym2.column(1)[1]) < feps);
-    REQUIRE(abs(glmm2[1][2] - trym2.column(1)[2]) < feps);
-    REQUIRE(abs(glmm2[2][0] - trym2.column(2)[0]) < feps);
-    REQUIRE(abs(glmm2[2][1] - trym2.column(2)[1]) < feps);
-    REQUIRE(abs(glmm2[2][2] - trym2.column(2)[2]) < feps);
+    REQUIRE(fabs(glmm2[0][0] - trym2.column(0)[0]) < feps);
+    REQUIRE(fabs(glmm2[0][1] - trym2.column(0)[1]) < feps);
+    REQUIRE(fabs(glmm2[0][2] - trym2.column(0)[2]) < feps);
+    REQUIRE(fabs(glmm2[1][0] - trym2.column(1)[0]) < feps);
+    REQUIRE(fabs(glmm2[1][1] - trym2.column(1)[1]) < feps);
+    REQUIRE(fabs(glmm2[1][2] - trym2.column(1)[2]) < feps);
+    REQUIRE(fabs(glmm2[2][0] - trym2.column(2)[0]) < feps);
+    REQUIRE(fabs(glmm2[2][1] - trym2.column(2)[1]) < feps);
+    REQUIRE(fabs(glmm2[2][2] - trym2.column(2)[2]) < feps);
 }

@@ -21,6 +21,24 @@
 
 #include "bootstrap.h"
 
+TEST_CASE( "Test Matrix4 from", "[math][matrix][matrix4][from]" )
+{
+    glm::mat4x4 glmm(
+        3.14, 1.2, 0.5, 0.2,
+        3, 1, 0.2, 0.6,
+        0, 2, 4, 1.5,
+        5.2, 20, 4, 0.3
+    );
+    Try::Matrix4 trym(
+        3.14, 1.2, 0.5, 0.2,
+        3, 1, 0.2, 0.6,
+        0, 2, 4, 1.5,
+        5.2, 20, 4, 0.3
+    );
+
+    REQUIRE(Try::Matrix4::from<glm::mat4x4>(glmm).transposed() == trym);
+}
+
 TEST_CASE( "Test Matrix4 transpose", "[math][matrix][matrix4][transpose]" )
 {
     Try::Matrix4 trym(
@@ -74,20 +92,20 @@ TEST_CASE( "Test Matrix4 invert", "[math][matrix][matrix4][invert]" )
 
     REQUIRE(trym2 == trym.inverted());
 
-    REQUIRE(abs(glmm2[0][0] - trym2.column(0)[0]) < feps);
-    REQUIRE(abs(glmm2[0][1] - trym2.column(0)[1]) < feps);
-    REQUIRE(abs(glmm2[0][2] - trym2.column(0)[2]) < feps);
-    REQUIRE(abs(glmm2[0][3] - trym2.column(0)[3]) < feps);
-    REQUIRE(abs(glmm2[1][0] - trym2.column(1)[0]) < feps);
-    REQUIRE(abs(glmm2[1][1] - trym2.column(1)[1]) < feps);
-    REQUIRE(abs(glmm2[1][2] - trym2.column(1)[2]) < feps);
-    REQUIRE(abs(glmm2[1][3] - trym2.column(1)[3]) < feps);
-    REQUIRE(abs(glmm2[2][0] - trym2.column(2)[0]) < feps);
-    REQUIRE(abs(glmm2[2][1] - trym2.column(2)[1]) < feps);
-    REQUIRE(abs(glmm2[2][2] - trym2.column(2)[2]) < feps);
-    REQUIRE(abs(glmm2[2][3] - trym2.column(2)[3]) < feps);
-    REQUIRE(abs(glmm2[3][0] - trym2.column(3)[0]) < feps);
-    REQUIRE(abs(glmm2[3][1] - trym2.column(3)[1]) < feps);
-    REQUIRE(abs(glmm2[3][2] - trym2.column(3)[2]) < feps);
-    REQUIRE(abs(glmm2[3][3] - trym2.column(3)[3]) < feps);
+    REQUIRE(fabs(glmm2[0][0] - trym2.column(0)[0]) < feps);
+    REQUIRE(fabs(glmm2[0][1] - trym2.column(0)[1]) < feps);
+    REQUIRE(fabs(glmm2[0][2] - trym2.column(0)[2]) < feps);
+    REQUIRE(fabs(glmm2[0][3] - trym2.column(0)[3]) < feps);
+    REQUIRE(fabs(glmm2[1][0] - trym2.column(1)[0]) < feps);
+    REQUIRE(fabs(glmm2[1][1] - trym2.column(1)[1]) < feps);
+    REQUIRE(fabs(glmm2[1][2] - trym2.column(1)[2]) < feps);
+    REQUIRE(fabs(glmm2[1][3] - trym2.column(1)[3]) < feps);
+    REQUIRE(fabs(glmm2[2][0] - trym2.column(2)[0]) < feps);
+    REQUIRE(fabs(glmm2[2][1] - trym2.column(2)[1]) < feps);
+    REQUIRE(fabs(glmm2[2][2] - trym2.column(2)[2]) < feps);
+    REQUIRE(fabs(glmm2[2][3] - trym2.column(2)[3]) < feps);
+    REQUIRE(fabs(glmm2[3][0] - trym2.column(3)[0]) < feps);
+    REQUIRE(fabs(glmm2[3][1] - trym2.column(3)[1]) < feps);
+    REQUIRE(fabs(glmm2[3][2] - trym2.column(3)[2]) < feps);
+    REQUIRE(fabs(glmm2[3][3] - trym2.column(3)[3]) < feps);
 }
