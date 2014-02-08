@@ -19,8 +19,8 @@
  * program. If not, see <http://www.opensource.org/licenses/bsd-license.php>
  */
 
-#ifndef TRY_ALIAS_H
-#define TRY_ALIAS_H
+#ifndef TRY_CORE_BASE_H
+#define TRY_CORE_BASE_H
 
 #include "rapidxml.h"
 #include <boost/thread/mutex.hpp>
@@ -49,4 +49,4 @@ namespace Try
     typedef rapidxml::xml_document<> XmlDoc;
 }
 
-#endif // TRY_ALIAS_H
+#endif // TRY_CORE_BASE_H
