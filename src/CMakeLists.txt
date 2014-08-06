@@ -13,3 +13,7 @@ INCLUDE(Requisities.txt)
 ADD_SUBDIRECTORY(core)
 ADD_SUBDIRECTORY(examples)
 ADD_SUBDIRECTORY(tests)
+
+# Unit testing.
+ENABLE_TESTING()
+ADD_TEST(Try tests/TryTests)
