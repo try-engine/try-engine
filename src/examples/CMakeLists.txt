@@ -1,1 +1,2 @@
 ADD_SUBDIRECTORY(taskscheduling)
+ADD_SUBDIRECTORY(model3d)
