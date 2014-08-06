@@ -19,9 +19,8 @@
  * program. If not, see <http://www.opensource.org/licenses/bsd-license.php>
  */
 
-#include "object.h"
-#include "behavior.h"
-#include "rapidxml.h"
+#include <core/object.h>
+#include <core/behavior.h>
 
 #define COPY_SUFFIX "_copy"
 

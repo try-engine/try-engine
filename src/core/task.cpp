@@ -19,7 +19,7 @@
  * program. If not, see <http://www.opensource.org/licenses/bsd-license.php>
  */
 
-#include "task.h"
+#include <core/task.h>
 #include <ostream>
 
 using namespace Try;

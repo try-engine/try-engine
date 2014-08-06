@@ -19,8 +19,8 @@
  * program. If not, see <http://www.opensource.org/licenses/bsd-license.php>
  */
 
-#include "property.h"
-#include "object.h"
+#include <core/property.h>
+#include <core/object.h>
 
 using namespace Try;
 

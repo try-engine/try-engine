@@ -19,7 +19,7 @@
  * program. If not, see <http://www.opensource.org/licenses/bsd-license.php>
  */
 
-#include "message.h"
+#include <core/message.h>
 
 using namespace Try;
 

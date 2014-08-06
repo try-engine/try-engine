@@ -19,7 +19,7 @@
  * program. If not, see <http://www.opensource.org/licenses/bsd-license.php>
  */
 
-#include "taskscheduler.h"
+#include <core/taskscheduler.h>
 
 using namespace Try;
 

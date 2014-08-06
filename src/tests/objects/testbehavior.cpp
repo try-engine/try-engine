@@ -19,8 +19,8 @@
  * program. If not, see <http://www.opensource.org/licenses/bsd-license.php>
  */
 
-#include "testbehavior.h"
 #include <iostream>
+#include "testbehavior.h"
 
 TestBehavior::TestBehavior()
 {

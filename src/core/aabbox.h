@@ -22,8 +22,8 @@
 #ifndef TRY_AABBOX_H
 #define TRY_AABBOX_H
 
-#include "vector3.h"
-#include "quaternion.h"
+#include "core/vector3.h"
+#include "core/quaternion.h"
 
 namespace Try
 {

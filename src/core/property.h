@@ -22,7 +22,7 @@
 #ifndef TRY_PROPERTY_H
 #define TRY_PROPERTY_H
 
-#include "message.h"
+#include <core/message.h>
 #include <map>
 
 namespace Try

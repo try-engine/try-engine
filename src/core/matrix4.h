@@ -22,7 +22,7 @@
 #ifndef TRY_MATRIX4_H
 #define TRY_MATRIX4_H
 
-#include "vector4.h"
+#include <core/vector4.h>
 
 namespace Try
 {

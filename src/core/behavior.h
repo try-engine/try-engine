@@ -22,7 +22,7 @@
 #ifndef TRY_BEHAVIOR_H
 #define TRY_BEHAVIOR_H
 
-#include "object.h"
+#include <core/object.h>
 
 namespace Try
 {

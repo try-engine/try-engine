@@ -22,8 +22,8 @@
 #ifndef TRY_FSM_H
 #define TRY_FSM_H
 
-#include "state.h"
-#include "listenable.h"
+#include <core/state.h>
+#include <core/listenable.h>
 
 namespace Try
 {

@@ -22,8 +22,8 @@
 #ifndef TRY_QUATERNION_H
 #define TRY_QUATERNION_H
 
-#include "vector3.h"
-#include "matrix3.h"
+#include <core/vector3.h>
+#include <core/matrix3.h>
 
 namespace Try
 {

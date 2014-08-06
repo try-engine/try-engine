@@ -19,9 +19,7 @@
  * program. If not, see <http://www.opensource.org/licenses/bsd-license.php>
  */
 
-#include <try.h>
-#include <singleton.h>
-#include <listenable.h>
+#include <core/try.h>
 
 class SimpleSingleton : public Singleton<SimpleSingleton> {};
 

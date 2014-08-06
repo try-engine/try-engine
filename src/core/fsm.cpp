@@ -19,9 +19,9 @@
  * program. If not, see <http://www.opensource.org/licenses/bsd-license.php>
  */
 
-#include "fsm.h"
-#include "object.h"
-#include "exception.h"
+#include <core/fsm.h>
+#include <core/object.h>
+#include <core/exception.h>
 
 using namespace Try;
 

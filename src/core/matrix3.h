@@ -22,7 +22,7 @@
 #ifndef TRY_MATRIX3_H
 #define TRY_MATRIX3_H
 
-#include "vector3.h"
+#include <core/vector3.h>
 
 namespace Try
 {

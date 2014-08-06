@@ -22,7 +22,8 @@
 #ifndef TRY_MESSAGE_H
 #define TRY_MESSAGE_H
 
-#include "try.h"
+#include <core/str.h>
+#include <core/base.h>
 
 namespace Try
 {

@@ -22,7 +22,8 @@
 #ifndef LOGGER_H
 #define LOGGER_H
 
-#include "singleton.h"
+#include <core/str.h>
+#include <core/singleton.h>
 
 #define logger Try::Logger::instance()
 

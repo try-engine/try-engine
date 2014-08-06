@@ -22,7 +22,7 @@
 #ifndef TRY_TRANSFORMABLE_H
 #define TRY_TRANSFORMABLE_H
 
-#include "aabbox.h"
+#include <core/aabbox.h>
 
 namespace Try
 {

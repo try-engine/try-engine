@@ -19,10 +19,10 @@
  * program. If not, see <http://www.opensource.org/licenses/bsd-license.php>
  */
 
+#include <tests/catch.hpp>
 #include "testbehavior.h"
 #include "testproperty1.h"
 #include "testproperty2.h"
-#include "catch.hpp"
 
 TEST_CASE( "Test a simple message sequence", "[behaviors][objects][properties][messages]" )
 {

@@ -19,9 +19,9 @@
  * program. If not, see <http://www.opensource.org/licenses/bsd-license.php>
  */
 
-#include <vector3.h>
-#include <str.h>
-#include "catch.hpp"
+#include <core/vector3.h>
+#include <core/str.h>
+#include <tests/catch.hpp>
 
 TEST_CASE( "Test generating strings from different sources using 'from<T>(...)'", "[string][from]" )
 {

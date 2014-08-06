@@ -22,7 +22,7 @@
 #ifndef TRY_SINGLETON_H
 #define TRY_SINGLETON_H
 
-#include "try.h"
+#include <core/base.h>
 
 namespace Try
 {

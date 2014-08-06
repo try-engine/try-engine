@@ -19,8 +19,8 @@
  * program. If not, see <http://www.opensource.org/licenses/bsd-license.php>
  */
 
+#include <tests/catch.hpp>
 #include "data.h"
-#include "catch.hpp"
 
 TEST_CASE( "Test a simple Singleton", "[patterns][singleton][simple]" )
 {

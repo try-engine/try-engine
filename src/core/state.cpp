@@ -19,8 +19,8 @@
  * program. If not, see <http://www.opensource.org/licenses/bsd-license.php>
  */
 
-#include "state.h"
-#include "fsm.h"
+#include <core/state.h>
+#include <core/fsm.h>
 
 using namespace Try;
 

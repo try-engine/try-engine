@@ -19,7 +19,7 @@
  * program. If not, see <http://www.opensource.org/licenses/bsd-license.php>
  */
 
-#include "matrix4.h"
+#include <core/matrix4.h>
 
 using namespace Try;
 

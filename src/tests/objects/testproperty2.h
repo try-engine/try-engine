@@ -22,7 +22,7 @@
 #ifndef TESTPROPERTY2_H
 #define TESTPROPERTY2_H
 
-#include "property.h"
+#include <core/property.h>
 
 class TestProperty2 : public Try::Property
 {

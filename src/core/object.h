@@ -22,7 +22,7 @@
 #ifndef TRY_OBJECT_H
 #define TRY_OBJECT_H
 
-#include "property.h"
+#include <core/property.h>
 #include <map>
 
 namespace Try

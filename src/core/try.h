@@ -22,15 +22,22 @@
 #ifndef TRY_H
 #define TRY_H
 
-#include "base.h"
-#include "str.h"
-#include "vector2.h"
-#include "vector3.h"
-#include "vector4.h"
-#include "matrix3.h"
-#include "matrix4.h"
-#include "quaternion.h"
-#include "transformable.h"
-#include "exception.h"
+#include <core/base.h>
+#include <core/str.h>
+#include <core/listenable.h>
+#include <core/singleton.h>
+#include <core/str.h>
+#include <core/vector2.h>
+#include <core/vector3.h>
+#include <core/vector4.h>
+#include <core/matrix3.h>
+#include <core/matrix4.h>
+#include <core/quaternion.h>
+#include <core/transformable.h>
+#include <core/exception.h>
+#include <core/logger.h>
+#include <core/taskscheduler.h>
+#include <core/fsm.h>
+#include <core/behavior.h>
 
 #endif // TRY_H

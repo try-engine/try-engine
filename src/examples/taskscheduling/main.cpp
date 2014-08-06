@@ -20,7 +20,7 @@
  */
 
 #include "testtask.h"
-#include <taskscheduler.h>
+#include <core/taskscheduler.h>
 #include <ostream>
 #include <ctime>
 

@@ -19,7 +19,7 @@
  * program. If not, see <http://www.opensource.org/licenses/bsd-license.php>
  */
 
-#include <fsm.h>
+#include <core/fsm.h>
 #include "catch.hpp"
 
 class BaseState : public Try::State

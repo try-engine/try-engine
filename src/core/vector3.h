@@ -22,7 +22,7 @@
 #ifndef TRY_VECTOR3_H
 #define TRY_VECTOR3_H
 
-#include "base.h"
+#include <core/base.h>
 
 namespace Try
 {

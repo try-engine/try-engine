@@ -19,7 +19,7 @@
  * program. If not, see <http://www.opensource.org/licenses/bsd-license.php>
  */
 
-#include "logger.h"
+#include <core/logger.h>
 #include <ctime>
 
 using namespace Try;

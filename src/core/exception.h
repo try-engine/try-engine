@@ -22,7 +22,7 @@
 #ifndef TRY_EXCEPTION_H
 #define TRY_EXCEPTION_H
 
-#include "try.h"
+#include <core/try.h>
 
 namespace Try
 {

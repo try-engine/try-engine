@@ -19,7 +19,7 @@
  * program. If not, see <http://www.opensource.org/licenses/bsd-license.php>
  */
 
-#include "behavior.h"
+#include <core/behavior.h>
 
 using namespace Try;
 

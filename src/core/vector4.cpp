@@ -19,7 +19,7 @@
  * program. If not, see <http://www.opensource.org/licenses/bsd-license.php>
  */
 
-#include "vector4.h"
+#include <core/vector4.h>
 
 using namespace Try;
 

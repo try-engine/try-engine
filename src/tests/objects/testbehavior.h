@@ -22,7 +22,7 @@
 #ifndef TESTBEHAVIOR_H
 #define TESTBEHAVIOR_H
 
-#include "behavior.h"
+#include <core/behavior.h>
 
 class TestBehavior : public Try::Behavior
 {

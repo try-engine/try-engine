@@ -19,7 +19,7 @@
  * program. If not, see <http://www.opensource.org/licenses/bsd-license.php>
  */
 
-#include "str.h"
+#include <core/str.h>
 #include <boost/algorithm/string.hpp>
 
 using namespace Try;

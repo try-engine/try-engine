@@ -19,12 +19,12 @@
  * program. If not, see <http://www.opensource.org/licenses/bsd-license.php>
  */
 
+#include <core/try.h>
+#include <tests/catch.hpp>
 #define GLM_FORCE_RADIANS
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_inverse.hpp"
 #include "glm/gtc/quaternion.hpp"
 #include "glm/gtx/vector_angle.hpp"
-#include <try.h>
-#include "catch.hpp"
 
 const float feps = 0.005;

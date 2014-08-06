@@ -22,8 +22,8 @@
 #ifndef TRY_TASKSCHEDULER_H
 #define TRY_TASKSCHEDULER_H
 
-#include "task.h"
-#include "singleton.h"
+#include <core/task.h>
+#include <core/singleton.h>
 #include <boost/thread.hpp>
 
 #define tasks TaskScheduler::instance()

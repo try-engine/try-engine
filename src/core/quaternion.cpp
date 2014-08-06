@@ -19,7 +19,7 @@
  * program. If not, see <http://www.opensource.org/licenses/bsd-license.php>
  */
 
-#include "quaternion.h"
+#include <core/quaternion.h>
 #include <algorithm>
 #include <math.h>
 

@@ -22,7 +22,7 @@
 #ifndef TRY_CORE_BASE_H
 #define TRY_CORE_BASE_H
 
-#include "rapidxml.h"
+#include <core/rapidxml.h>
 #include <boost/thread/mutex.hpp>
 #include <boost/any.hpp>
 #include <vector>

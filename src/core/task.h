@@ -22,7 +22,7 @@
 #ifndef TRY_TASK_H
 #define TRY_TASK_H
 
-#include "try.h"
+#include <core/base.h>
 #include <queue>
 
 namespace Try

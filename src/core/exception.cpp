@@ -19,8 +19,8 @@
  * program. If not, see <http://www.opensource.org/licenses/bsd-license.php>
  */
 
-#include "exception.h"
-#include "logger.h"
+#include <core/exception.h>
+#include <core/logger.h>
 
 using namespace Try;
 

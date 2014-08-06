@@ -22,7 +22,8 @@
 #ifndef TESTTASK_H
 #define TESTTASK_H
 
-#include <task.h>
+#include <core/str.h>
+#include <core/task.h>
 #include <boost/thread.hpp>
 
 class TestTask : public Try::Task

@@ -22,7 +22,7 @@
 #ifndef TRY_STATE_H
 #define TRY_STATE_H
 
-#include "try.h"
+#include <core/base.h>
 
 namespace Try
 {
