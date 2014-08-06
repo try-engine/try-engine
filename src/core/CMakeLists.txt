@@ -27,5 +27,6 @@ SET(TRYCORE_SOURCES
 ADD_LIBRARY(TryCore SHARED ${TRYCORE_SOURCES})
 
 TARGET_LINK_LIBRARIES(TryCore
-    boost_thread-mt
+    boost_thread
+    boost_system
 )
